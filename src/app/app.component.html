@@ -1,0 +1,50 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<table class="table table-responsive">
+  <thead>
+    <th></th>
+    <th>SurveyName</th>
+    <th>HeaderColor</th>
+    <th>FooterColor</th>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of lst_data; let i=index">
+      <tr>
+        <td (click)="onLastClick(item,i)">{{item.isOpen ? '-' : '+'}}</td>
+        <td>{{item.surveyName}}</td>
+        <td>{{item.headerColor}}</td>
+        <td>{{item.footerColor}}</td>
+      </tr>
+      <ng-container *ngFor="let sec of item.sections; let j=index">
+        <tr *ngIf="item.isOpen && j==0">
+          <th></th>
+          <td></td>
+          <th>SectionTitle</th>
+          <th>SectionDescription</th>
+        </tr>
+        <tr *ngIf="item.isOpen">
+          <td></td>
+          <td (click)="onLastClick(sec,i)">{{sec.isOpen ? '-' : '+'}}</td>
+          <td>{{sec.sectionTitle}}</td>
+          <td>{{sec.sectionDescription}}</td>
+        </tr>
+        <ng-container *ngFor="let que of sec.questions; let k=index">
+          <tr *ngIf="sec.isOpen && k==0">
+            <th></th>
+            <th></th>
+            <th>Que</th>
+            <th>Ans</th>
+          </tr>
+          <tr *ngIf="sec.isOpen">
+            <td></td>
+            <td></td>
+            <td>{{que.que}}</td>
+            <td>{{que.ans}}</td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </tbody>
+</table>
+
+<router-outlet></router-outlet>
